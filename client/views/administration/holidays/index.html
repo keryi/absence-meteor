@@ -1,0 +1,72 @@
+<template name='adminHolidayIndex'>
+
+<div class="row">
+	<div class="col-lg-12">
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+
+		<h3>
+		List of Holidays&nbsp;&nbsp;
+		<a href='#' id='new-holiday-button' class='btn btn-primary'>New Holiday</a>
+		</h3>
+
+		<h3>
+		Import From CSV: <input type='file' id='new-holiday-file' />
+		</h3>
+
+		<table class='table table-bordered'>
+			<thead>
+			<tr>
+			<th>Name</th>
+			<th>Actual Date</th>
+			<th>Replacement Date</th>
+			<th width='15%' colspan='2'>Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each holidays}}
+				<tr>
+					<td>{{name}}</td>
+					<td>{{formatDate actualDate}}</td>
+					<td>{{formatDate replacementDate}}</td>
+					<td class='text-center'><a href='#' class='btn btn-warning edit_holiday' data-id='{{_id}}'>Edit</a></td>
+					<td class='text-center'><a href='#' class='btn btn-danger delete_holiday' data-id='{{_id}}'>Delete</a></td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal fade" id="newHolidayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Holiday</h4>
+      </div>
+      <div class="modal-body">
+        
+      {{> holidayNew}}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editHolidayModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit Holiday</h4>
+      </div>
+      <div class="modal-body">
+        
+      {{> holidayEdit}}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+</template>

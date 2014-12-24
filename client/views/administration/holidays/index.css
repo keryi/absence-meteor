@@ -1,0 +1,4 @@
+.datepicker.dropdown-menu {
+	z-index: 1041 !important; 
+	/* modal z-index @ 1040 */
+}

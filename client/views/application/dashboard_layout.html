@@ -1,0 +1,42 @@
+<template name='dashboardLayout'>
+
+<div id="wrapper">
+
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="sidebar-brand"><a href="#">Office.Misc</a></li>
+			<li class='sidebar-item'><a href="{{pathFor 'holidayIndex'}}">List of Holidays</a></li>
+			<li class='sidebar-item active'><a href="{{pathFor 'absenceIndex'}}">List of Absences</a></li>
+			{{#unless isAdmin}}
+				<li class='sidebar-item'><a href="{{pathFor 'absenceForm'}}">Apply for Absence</a></li>
+				<li class='sidebar-item'><a href="{{pathFor 'claimForm'}}">Apply for Claim</a></li>
+			{{/unless}}
+			<li class='sidebar-item'><a href="{{pathFor 'absenceCalendar'}}">Absence Calendar</a></li>
+			
+			<li class='sidebar-item'><a href="{{pathFor 'claimIndex'}}">List of Claims</a></li>
+
+			<li class="sidebar-brand"><a href="#">Settings</a></li>
+			<li class='sidebar-item'><a href="{{pathFor 'userProfile'}}">Profile</a></li>
+
+			{{#if isAdmin}}
+				<li class="sidebar-brand"><a href="#">Administration</a></li>
+				<li class='sidebar-item'><a href="{{pathFor 'adminAbsenceIndex'}}">Absences</a></li>
+				<li class='sidebar-item'><a href="{{pathFor 'adminClaimIndex'}}">Claims</a></li>
+				<li class='sidebar-item'><a href="{{pathFor 'adminUserIndex'}}">Users</a></li>
+				<li class='sidebar-item'><a href="{{pathFor 'adminHolidayIndex'}}">Holidays</a></li>
+			{{/if}}
+
+			<li class='sidebar-item sidebar-action'><a href="#" id="signout">Sign out</a></li>
+		</ul>
+	</div>
+
+	<div id="page-content-wrapper">
+		{{> notifications}}
+		<div class="container-fluid">
+			{{> yield}}
+		</div>
+	</div>
+
+</div>
+
+</template>

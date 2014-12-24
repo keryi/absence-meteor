@@ -1,0 +1,65 @@
+.btn {
+	border-radius: 0;
+	background-color: transparent;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.btn-primary {
+	color: #357ebd;
+}
+
+.btn-success {
+	color: #449d44;
+}
+
+.btn-warning {
+	color: #eea236;
+}
+
+.btn-danger {
+	color: #d43f3a;
+}
+
+.control-label {
+	text-transform: uppercase;
+}
+
+.form-control {
+	border-radius: 0;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-transform: uppercase;
+}
+
+.alert {
+	margin-bottom: 0;
+}
+
+.modal-content {
+	border-radius: 0;
+}
+
+.modal-header {
+	background-color: #357ebd;
+	color: #fff;
+}
+
+.label {
+	padding: 8px;
+	font-size: 100%;
+	font-weight: normal;
+	line-height: 2.5;
+	border-radius: 0;
+	text-transform: uppercase;
+}
+
+#iron-router-progress {
+    background-color : rgba(219, 85, 85, 1);
+    box-shadow       : 0 0 5px rgba(219, 85, 85, 1);
+}

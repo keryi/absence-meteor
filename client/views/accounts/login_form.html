@@ -1,0 +1,34 @@
+<template name='loginForm'>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<div class="account-box">
+				<div class="account-header">
+					<h3>Sign in</h3>
+				</div>
+
+				<form id="login-form" class="form">
+					<div class="form-group">
+						<label class="control-label">Email</label>
+						<input type="email" id="login-email" class="form-control" autocomplete="on"/>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Password</label>
+						<input type="password" id="login-password" class="form-control" />
+					</div>
+
+					<div class="form-group">
+						<input type="submit" id="login-button" value="Sign in" class="btn btn-primary" />
+						<a href="{{pathFor 'registerForm'}}" class="btn btn-success">No Account?</a>
+					</div>
+				</form>
+
+				<a href="{{pathFor 'passwordRecovery'}}" class="btn btn-warning">Forgot password?</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+</template>

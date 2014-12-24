@@ -1,0 +1,18 @@
+#error-bg {
+	position: fixed; 
+	top: -50%; 
+	left: -50%; 
+	width: 200%; 
+	height: 200%;
+}
+
+#error-bg img {
+	position: absolute;
+	top: 20%;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 50%;
+	height: 50%;
+}

@@ -1,0 +1,40 @@
+<template name='userEdit'>
+
+<form id="edit_user_form" class="form">
+	<input type="hidden" id="edit_user_id" />
+
+	<div class="form-group">
+		<label class="control-label">Email</label>
+		<input type="text" id="edit_user_email" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Username</label>
+		<input type="text" id="edit_user_username" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Firstname</label>
+		<input type="text" id="edit_user_firstname" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Lastname</label>
+		<input type="text" id="edit_user_lastname" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Role</label>
+		<select id="edit_user_role" class="form-control">
+		{{#each roles}}
+			<option value='{{name}}'>{{name}}</option>
+		{{/each}}
+		</select>
+	</div>
+
+	<div class="form-group">
+		<input type="submit" value="Update" class="btn btn-primary" />
+	</div>
+</form>
+
+</template>

@@ -1,0 +1,33 @@
+<template name='absenceIndex'>
+<div class="row">
+	<div class="col-lg-12">
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+		<h3>My Absences</h3>
+
+		<table class='table table-bordered'>
+		<thead>
+		<tr>
+		<th>Type</th>
+		<th>Start Date</th>
+		<th>End Date</th>
+		<th>Reason</th>
+		<th>Submitted At</th>
+		<th>Status</th>
+		</tr>
+		</thead>
+		<tbody>
+		{{#each absences}}
+			<tr>
+			<td>{{type}}</td>
+			<td>{{formatDate startDate}}</td>
+			<td>{{formatDate endDate}}</td>
+			<td>{{reason}}</td>
+			<td>{{formatDatetime submittedAt}}</td>
+			<td><span class="label label-{{statusLabel status}}">{{status}}</span></td>
+			</tr>
+		{{/each}}
+		</tbody>
+		</table>
+	</div>
+</div>
+</template>

@@ -1,0 +1,72 @@
+<template name='adminUserIndex'>
+
+<div class="row">
+	<div class="col-lg-12">
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+
+		<h3>
+		List of Users&nbsp;&nbsp;
+		<a href='#' id='new-user-button' class='btn btn-primary'>New User</a>
+		</h3>
+
+		<table class='table table-bordered'>
+			<thead>
+			<tr>
+			<th>Email</th>
+			<th>Username</th>
+			<th>Firstname</th>
+			<th>Lastname</th>
+			<th>Role</th>
+			<th width="15%" colspan="2"></th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each users}}
+				<tr>
+					<td>{{formatEmail emails}}</td>
+					<td>{{username}}</td>
+					<td>{{profile.firstname}}</td>
+					<td>{{profile.lastname}}</td>
+					<td>{{roleName profile.roleId}}</td>
+					<td class='text-center'><a href='#' class='btn btn-warning edit_user' data-id='{{_id}}'>Edit</a></td>
+					<td class='text-center'><a href='#' class='btn btn-danger delete_user' data-id='{{_id}}'>Delete</a></td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="modal fade" id="newUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">New User</h4>
+      </div>
+      <div class="modal-body">
+        
+      {{> userNew}}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+      </div>
+      <div class="modal-body">
+        
+      {{> userEdit}}
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+</template>

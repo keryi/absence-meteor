@@ -1,0 +1,72 @@
+.fc-today-button.fc-button {
+	border-radius: 0;
+	font-weight: bold;
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+
+.fc-today-button.fc-button.fc-state-default.fc-corner-left.fc-corner-right.fc-state-disabled {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+.fc-button {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 0;
+	text-transform: uppercase;
+}
+
+.fc-button:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+.fc-prev-button.fc-button.fc-state-default.fc-corner-left,
+.fc-next-button.fc-button.fc-state-default.fc-corner-right.fc-state-hover {
+	border-radius: 0;
+}
+
+.fc-left h2 {
+	font-size: 24px;
+}
+
+.fc-event {
+	font-size: 90%;
+	line-height: 1;
+	border-radius: 0;
+	border: 1px solid #1abc9c;
+	background-color: #1abc9c;
+	padding: 3px;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.fc-event, .fc-event:hover, .ui-widget .fc-event {
+	color: #fff; 
+	text-decoration: none;
+}
+
+.fc-day-grid-event > .fc-content {
+	 white-space: normal; 
+	 overflow:none; 
+}

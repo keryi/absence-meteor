@@ -1,0 +1,26 @@
+<template name='holidayEdit'>
+
+<form id="edit_holiday_form" class="form">
+	<input type="hidden" id="edit_holiday_id" />
+
+	<div class="form-group">
+		<label class="control-label">Name</label>
+		<input type="text" id="edit_holiday_name" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Actual Date</label>
+		<input type="text" id="edit_holiday_actual_date" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<label class="control-label">Replacement Date [optional]</label>
+		<input type="text" id="edit_holiday_replacement_date" class="form-control" />
+	</div>
+
+	<div class="form-group">
+		<input type="submit" value="Update" class="btn btn-primary" />
+	</div>
+</form>
+
+</template>
