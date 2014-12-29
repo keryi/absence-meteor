@@ -4,8 +4,11 @@ var validateStartAndEndDates = function() {
 	startDate = moment(startDate, "MMMM DD, YYYY");
 	endDate = moment(endDate, "MMMM DD, YYYY");
 
-	if (endDate < startDate)
+	if (endDate < startDate) {
+		document.getElementById('absence_start_date').value = '';
+		document.getElementById('absence_end_date').value = '';
 		return false;
+	}
 
 	// Calculate duration
 	// list the dates in array,
@@ -94,6 +97,8 @@ Template.absenceForm.rendered = function() {
 		calendarWeeks: true,
 		todayHighlight: true
 	}).on('hide', function(e){
-        validateStartAndEndDates();
+        if (!validateStartAndEndDates()) {
+        	notifyError('Error! Something wrong with your start date and end date');
+        }
     });
 }
