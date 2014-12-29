@@ -63,7 +63,7 @@ Template.absenceForm.events({
 				duration_type: duration_type,
 				duration: duration,
 				reason: reason,
-				submittedAt: moment().format('MMMM Do YYYY, dddd, h:mm:ss a'),
+				submittedAt: moment().toDate(),
 				status: 'pending'// Pending, Approved, Rejected
 			}, function(err) {
 				if (err) {
