@@ -48,12 +48,20 @@ Template.absenceForm.events({
 			var reason = t.find('#absence_reason').value;
 			var type = t.find('#absence_type').value;
 			var duration = t.find('#absence_duration').value;
+			var duration_type = 'full'; // default to full day absence
+			if (t.find('#absence_duration_type_half_day').checked) {
+				duration_type = 'half';
+				endDate = startDate;
+				duration = 0.5;
+			}
 
 			var absenceId = Absences.insert({
 				type: type,// Annual, Sick, Marriage, etc
 				userId: Meteor.userId(),
 				startDate: startDate,
 				endDate: endDate,
+				duration_type: duration_type,
+				duration: duration,
 				reason: reason,
 				submittedAt: moment().format('MMMM Do YYYY, dddd, h:mm:ss a'),
 				status: 'pending'// Pending, Approved, Rejected
@@ -69,6 +77,24 @@ Template.absenceForm.events({
 			notifyError('Error! Something wrong with your start date and end date');
 		}
 	},
+
+	"change [name='absence_duration']": function(e, t) {
+		e.preventDefault();
+
+		if (t.find('#absence_duration_type_full_day').checked) {
+			document.getElementById('absence_end_date').value = '';
+			document.getElementById('absence_end_date').disabled = false;
+			document.getElementById('absence_duration').value = '';
+		}
+
+		if (t.find('#absence_duration_type_half_day').checked) {
+			document.getElementById('absence_end_date').value =
+				document.getElementById('absence_start_date').value;
+			document.getElementById('absence_end_date').disabled = true;
+			document.getElementById('absence_duration').value = 0.5;
+		}
+	}
+
 });
 
 Template.absenceForm.helpers({
