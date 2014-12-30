@@ -21,6 +21,10 @@
 	color: #d43f3a;
 }
 
+.btn-info {
+	color: #5bc0de;
+}
+
 .control-label {
 	text-transform: uppercase;
 }

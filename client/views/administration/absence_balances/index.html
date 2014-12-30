@@ -1,0 +1,46 @@
+<template name='adminAbsenceBalanceIndex'>
+
+<div class="row">
+	<div class="col-lg-8">
+		<a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menu</a>
+		<h3>
+		List of Absence Balances For Year {{currentYear}}
+		</h3>
+		<h3>
+		<a href="{{pathFor 'adminAbsenceBalanceIndex' type='annual'}}" class='btn btn-primary'>Annual</a>
+		<a href="{{pathFor 'adminAbsenceBalanceIndex' type='sick'}}" class='btn btn-warning'>Sick</a>
+		<a href="{{pathFor 'adminAbsenceBalanceIndex' type='hospitalization'}}" class='btn btn-success'>Hospitalization</a>
+		<a href="{{pathFor 'adminAbsenceBalanceIndex' type='maternity'}}" class='btn btn-danger'>Maternity</a>
+		<a href="{{pathFor 'adminAbsenceBalanceIndex' type='marriage'}}" class='btn btn-info'>Marriage</a>
+		</h3>
+		{{> absenceBalanceTable absenceBalances}}
+	</div>
+</div>
+
+</template>
+
+<template name='absenceBalanceTable'>
+
+<table class='table table-bordered'>
+	<thead>
+	<tr>
+	<th>Type</th>
+	<th>User</th>
+	<th>Count</th>
+	<th colspan="2" width='20%'>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{#each this}}
+		<tr>
+		<td>{{type}}</td>
+		<td>{{userName userId}}</td>
+		<td>{{count}}</td>
+		<td class='text-center'><a href='#' class='btn btn-success absence_balance_edit' data-id='{{_id}}'>Edit</a></td>
+		<td class='text-center'><a href='#' class='btn btn-danger absence_balance_remove' data-id='{{_id}}'>Remove</a></td>
+		</tr>
+	{{/each}}
+	</tbody>
+</table>
+
+</template>
