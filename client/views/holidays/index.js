@@ -5,14 +5,6 @@ function getHolidaysByYear(year) {
 }
 
 Template.holidayIndex.helpers({
-	currentYear: function() {
-		return new Date().getFullYear();
-	},
-
-	nextYear: function() {
-		return new Date().getFullYear() + 1;
-	},
-	
 	currentYearHolidays: function() {
 		var currentYear = new Date().getFullYear();
 		return getHolidaysByYear(currentYear);

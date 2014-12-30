@@ -43,8 +43,8 @@ Template.absenceForm.events({
 
 		if (validateStartAndEndDates()) {
 			// Process form
-			var startDate = t.find('#absence_start_date').value;
-			var endDate = t.find('#absence_end_date').value;
+			var startDate = moment(t.find('#absence_start_date').value, 'MMMM DD, YYYY').toDate();
+			var endDate = moment(t.find('#absence_end_date').value, 'MMMM DD, YYYY').toDate();
 			var reason = t.find('#absence_reason').value;
 			var type = t.find('#absence_type').value;
 			var duration = t.find('#absence_duration').value;
