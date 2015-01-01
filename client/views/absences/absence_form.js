@@ -1,6 +1,11 @@
 var validateStartAndEndDates = function() {
 	var startDate = document.getElementById('absence_start_date').value;
 	var endDate = document.getElementById('absence_end_date').value;
+
+	if (startDate.trim() === '' || endDate.trim() === '') {
+		return false;
+	}
+
 	startDate = moment(startDate, "MMMM DD, YYYY");
 	endDate = moment(endDate, "MMMM DD, YYYY");
 
@@ -18,17 +23,22 @@ var validateStartAndEndDates = function() {
 	var range = endDate.diff(startDate, 'days');
 	var duration = range;
 
-	var holidays = Holidays.find({ year: (new Date()).getFullYear() }).fetch();
+
+	var holidays = getHolidaysByYear(new Date().getFullYear()).fetch();
 	var holidayWeekNums = _.map(holidays, function(holiday) {
-		var m = moment(holiday.date);
-		return m.isoWeekday();
+		var m = moment(holiday.actualDate);
+		if (holiday.replacementDate.trim() !== '') {
+			m = moment(holiday.replacementDate);
+		}
+		return m.dayOfYear();
 	});
 
 	for (var i = 0; i <= range; i++) {
-		var weekNum = startDate.add(i, 'days').isoWeekday();
+		var weekNum = startDate.clone().add(i, 'days').isoWeekday();
+		var dayOfYearNum = startDate.clone().add(i, 'days').dayOfYear();
 		if (weekNum == 6 || weekNum == 7) {
 			duration -= 1;
-		} else if (_.include(holidayWeekNums, weekNum)) {
+		} else if (_.include(holidayWeekNums, dayOfYearNum)) {
 			duration -= 1;
 		}
 	}
@@ -49,6 +59,7 @@ Template.absenceForm.events({
 			var type = t.find('#absence_type').value;
 			var duration = t.find('#absence_duration').value;
 			var duration_type = 'full'; // default to full day absence
+
 			if (t.find('#absence_duration_type_half_day').checked) {
 				duration_type = 'half';
 				endDate = startDate;
@@ -69,6 +80,41 @@ Template.absenceForm.events({
 				if (err) {
 					notifyError(err);
 				} else {
+					var approveRoleId = Roles.findOne({ name: 'approver' })._id;
+					var approvers = Meteor.users.find({
+						'profile.roleId': approveRoleId
+					}).fetch();
+
+					var emailContext = {
+						approver: approvers.map(
+							function(approver) { return approver.username }),
+						applicant: Meteor.user().username,
+						startDate: startDate.toDateString(),
+						endDate: endDate.toDateString(),
+						duration: duration,
+						type: type,
+						reason: reason
+					};
+
+					var emailHtml = Blaze.toHTMLWithData(
+						Template.absenceApplication, emailContext);
+
+					var approverEmails = approvers.map(function(approver) {
+						return approver.emails[0].address;
+					});
+
+					console.log(approverEmails);
+
+					var adminRoleId = Roles.findOne({ name: 'admin' })._id;
+					var adminEmail = Meteor.users.findOne({
+						'profile.roleId': adminRoleId
+					}).emails[0].address;
+
+					Meteor.call('sendEmail',
+						approverEmails,
+						adminEmail,
+						'Absence Application From ' + Meteor.user().username,
+						emailHtml);
 					notifySuccess('Your application for absence is being processed.');
 					Router.go('absenceIndex');
 				}

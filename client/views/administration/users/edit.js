@@ -3,15 +3,15 @@ Template.userEdit.events({
 		e.preventDefault();
 
 		var id = t.find('#edit_user_id').value;
-		var email = t.find('#edit_user_email');
+		var email = t.find('#edit_user_email').value;
 		var username = t.find('#edit_user_username').value;
 		var firstname = t.find('#edit_user_firstname').value;
 		var lastname = t.find('#edit_user_lastname').value;
-		var roleName = t.find('#edit_user_role').value;
-		var roleId = Roles.find({ name: roleName })._id;
+		var roleName = document.getElementById('edit_user_role').value;
+		var roleId = Roles.findOne({ name: roleName })._id;
 
-		Accounts.update({ _id: id }, { $set: {
-			emails: email,
+		Meteor.users.update({ _id: id }, { $set: {
+			emails: new Array({ address: email, verified: false }),
 			username: username,
 			profile: {
 				firstname: firstname,
