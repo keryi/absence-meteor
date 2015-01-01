@@ -103,8 +103,6 @@ Template.absenceForm.events({
 						return approver.emails[0].address;
 					});
 
-					console.log(approverEmails);
-
 					var adminRoleId = Roles.findOne({ name: 'admin' })._id;
 					var adminEmail = Meteor.users.findOne({
 						'profile.roleId': adminRoleId
