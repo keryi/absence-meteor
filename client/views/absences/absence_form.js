@@ -103,7 +103,7 @@ Template.absenceForm.helpers({
 	},
 
 	absenceTypes: function() {
-		return ['annual', 'marriage', 'maternity', 'sick', 'hospitalization'];
+		return Object.keys(ABSENCE_DEFAULT_BALANCES);
 	}
 });
 
