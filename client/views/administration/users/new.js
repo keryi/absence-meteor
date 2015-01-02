@@ -17,8 +17,6 @@ Template.userNew.events({
 			$('userNewModal').hide();
 			if (err) {
 				notifyError('Failed to sign up');
-			} else {
-				Router.go('absenceIndex');
 			}
 		});
 	}
