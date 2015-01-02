@@ -51,74 +51,76 @@ Template.absenceForm.events({
 	'submit form': function(e, t) {
 		e.preventDefault();
 
-		if (validateStartAndEndDates()) {
-			// Process form
-			var startDate = moment(t.find('#absence_start_date').value, 'MMMM DD, YYYY').toDate();
-			var endDate = moment(t.find('#absence_end_date').value, 'MMMM DD, YYYY').toDate();
-			var reason = t.find('#absence_reason').value;
-			var type = t.find('#absence_type').value;
-			var duration = t.find('#absence_duration').value;
-			var duration_type = 'full'; // default to full day absence
+		if (confirm('Are you confirm to submit this absence application? No changes can be made after submission!')) {
+			if (validateStartAndEndDates()) {
+				// Process form
+				var startDate = moment(t.find('#absence_start_date').value, 'MMMM DD, YYYY').toDate();
+				var endDate = moment(t.find('#absence_end_date').value, 'MMMM DD, YYYY').toDate();
+				var reason = t.find('#absence_reason').value;
+				var type = t.find('#absence_type').value;
+				var duration = t.find('#absence_duration').value;
+				var duration_type = 'full'; // default to full day absence
 
-			if (t.find('#absence_duration_type_half_day').checked) {
-				duration_type = 'half';
-				endDate = startDate;
-				duration = 0.5;
-			}
-
-			var absenceId = Absences.insert({
-				type: type,// Annual, Sick, Marriage, etc
-				userId: Meteor.userId(),
-				startDate: startDate,
-				endDate: endDate,
-				duration_type: duration_type,
-				duration: duration,
-				reason: reason,
-				submittedAt: moment().toDate(),
-				status: 'pending'// Pending, Approved, Rejected
-			}, function(err) {
-				if (err) {
-					notifyError(err);
-				} else {
-					var approveRoleId = Roles.findOne({ name: 'approver' })._id;
-					var approvers = Meteor.users.find({
-						'profile.roleId': approveRoleId
-					}).fetch();
-
-					var emailContext = {
-						approver: approvers.map(
-							function(approver) { return approver.username }),
-						applicant: Meteor.user().username,
-						startDate: startDate.toDateString(),
-						endDate: endDate.toDateString(),
-						duration: duration,
-						type: type,
-						reason: reason
-					};
-
-					var emailHtml = Blaze.toHTMLWithData(
-						Template.absenceApplication, emailContext);
-
-					var approverEmails = approvers.map(function(approver) {
-						return approver.emails[0].address;
-					});
-
-					var adminRoleId = Roles.findOne({ name: 'admin' })._id;
-					var adminEmail = Meteor.users.findOne({
-						'profile.roleId': adminRoleId
-					}).emails[0].address;
-
-					Meteor.call('sendEmail',
-						approverEmails,
-						adminEmail,
-						'Absence Application From ' + Meteor.user().username,
-						emailHtml);
-					notifySuccess('Your application for absence is being processed.');
-					Router.go('absenceIndex');
+				if (t.find('#absence_duration_type_half_day').checked) {
+					duration_type = 'half';
+					endDate = startDate;
+					duration = 0.5;
 				}
-			});
-		} else {
-			notifyError('Error! Something wrong with your start date and end date');
+
+				var absenceId = Absences.insert({
+					type: type,// Annual, Sick, Marriage, etc
+					userId: Meteor.userId(),
+					startDate: startDate,
+					endDate: endDate,
+					duration_type: duration_type,
+					duration: duration,
+					reason: reason,
+					submittedAt: moment().toDate(),
+					status: 'pending'// Pending, Approved, Rejected
+				}, function(err) {
+					if (err) {
+						notifyError(err);
+					} else {
+						var approveRoleId = Roles.findOne({ name: 'approver' })._id;
+						var approvers = Meteor.users.find({
+							'profile.roleId': approveRoleId
+						}).fetch();
+
+						var emailContext = {
+							approver: approvers.map(
+								function(approver) { return approver.username }),
+							applicant: Meteor.user().username,
+							startDate: startDate.toDateString(),
+							endDate: endDate.toDateString(),
+							duration: duration,
+							type: type,
+							reason: reason
+						};
+
+						var emailHtml = Blaze.toHTMLWithData(
+							Template.absenceApplication, emailContext);
+
+						var approverEmails = approvers.map(function(approver) {
+							return approver.emails[0].address;
+						});
+
+						var adminRoleId = Roles.findOne({ name: 'admin' })._id;
+						var adminEmail = Meteor.users.findOne({
+							'profile.roleId': adminRoleId
+						}).emails[0].address;
+
+						Meteor.call('sendEmail',
+							approverEmails,
+							adminEmail,
+							'Absence Application From ' + Meteor.user().username,
+							emailHtml);
+						notifySuccess('Your application for absence is being processed.');
+						Router.go('absenceIndex');
+					}
+				});
+			} else {
+				notifyError('Error! Something wrong with your start date and end date');
+			}
 		}
 	},
 
