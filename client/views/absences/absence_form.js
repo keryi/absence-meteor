@@ -145,7 +145,10 @@ Template.absenceForm.events({
 
 Template.absenceForm.helpers({
 	absenceBalances: function() {
-		return AbsenceBalances.find();
+		return AbsenceBalances.find({
+			year: new Date().getFullYear(),
+			userId: Meteor.userId()
+		});
 	},
 
 	absenceTypes: function() {
